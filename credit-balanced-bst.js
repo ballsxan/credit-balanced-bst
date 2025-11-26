@@ -334,3 +334,5 @@ const CreditBalancedBST = (function () {
         }
     };
 })();
+
+export { CreditBalancedBST };
