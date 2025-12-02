@@ -1,5 +1,5 @@
 {
-  "name": "credit-balanced-bst",
+  "name": "@ballsxan/credit-balanced-bst",
   "version": "0.1.0",
   "files": [
     "dist"
@@ -15,7 +15,7 @@
     "rollup": "^4.53.3"
   },
   "exports": {
-  "import": "./dist/index.mjs",
-  "require": "./dist/index.cjs"
-}
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  }
 }
