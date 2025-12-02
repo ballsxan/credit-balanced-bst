@@ -17,5 +17,8 @@
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.cjs"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
