@@ -1,9 +1,21 @@
 {
+  "name": "credit-balanced-bst",
+  "version": "0.1.0",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.3",
     "rollup": "^4.53.3"
-  }
+  },
+  "exports": {
+  "import": "./dist/index.mjs",
+  "require": "./dist/index.cjs"
+}
 }
