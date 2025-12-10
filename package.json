@@ -1,11 +1,11 @@
 {
   "name": "@ballsxan/credit-balanced-bst",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
+  "main": "dist/credit-balanced-bst.umd.js",
+  "module": "dist/credit-balanced-bst.esm.js",
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build"
@@ -15,8 +15,8 @@
     "rollup": "^4.53.3"
   },
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.cjs"
+    "import": "./dist/credit-balanced-bst.esm.js",
+    "require": "./dist/credit-balanced-bst.umd.js"
   },
   "publishConfig": {
     "access": "public"
