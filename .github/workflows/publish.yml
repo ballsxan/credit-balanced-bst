@@ -31,6 +31,31 @@ jobs:
             exit 1
           fi
 
+      - name: Diagnose npm OIDC claims and token exchange
+        run: |
+          set -uo pipefail
+          ID_TOKEN=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm:registry.npmjs.org" \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{process.stdout.write(JSON.parse(s).value)})')
+
+          echo "--- claims in the OIDC token npm sends ---"
+          node -e '
+            const payload = process.argv[1].split(".")[1]
+            const claims = JSON.parse(Buffer.from(payload, "base64url").toString())
+            const keep = ["aud", "sub", "repository", "repository_id", "repository_owner",
+                          "repository_visibility", "ref", "workflow", "job_workflow_ref", "environment"]
+            const out = Object.fromEntries(keep.filter(k => claims[k] !== undefined).map(k => [k, claims[k]]))
+            console.log(JSON.stringify(out, null, 2))
+          ' "$ID_TOKEN"
+
+          echo "--- POST /-/npm/v1/oidc/token/exchange/package/@ballsxan%2fcredit-balanced-bst ---"
+          code=$(curl -sS -o /tmp/exchange.json -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer $ID_TOKEN" \
+            "https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/@ballsxan%2fcredit-balanced-bst")
+          echo "HTTP $code"
+          cat /tmp/exchange.json || true
+          echo
+
       - run: npm ci
       - run: npm run build --if-present
       - run: npm publish --loglevel=verbose
