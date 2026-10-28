@@ -58,4 +58,6 @@ jobs:
 
       - run: npm ci
       - run: npm run build --if-present
+      # Only a v* tag publishes; workflow_dispatch is diagnostic-only
       - run: npm publish --loglevel=verbose
+        if: startsWith(github.ref, 'refs/tags/v')
