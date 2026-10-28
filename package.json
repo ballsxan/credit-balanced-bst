@@ -4,6 +4,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ballsxan/credit-balanced-bst.git"
+  },
   "main": "dist/credit-balanced-bst.umd.js",
   "module": "dist/credit-balanced-bst.esm.js",
   "scripts": {
