@@ -267,7 +267,7 @@ const CreditBalancedBST = (function () {
             newNode = balance(node);
 
             if (newNode == node) {
-               // if there was no rotation in 'balance' node.creditSum calculation has to be forced
+                // if there was no rotation in 'balance' node.creditSum calculation has to be forced
                 updateCreditSum(node)
             }
         }
@@ -330,7 +330,10 @@ const CreditBalancedBST = (function () {
         // This method should always be used to alter credits if the tree is to be maintained as a credit balanced tree.
         // Otherwise the rest of methods could fail
         updateCreditByKey(key, newCredit) {
-            updateCreditRecursive(this.root, key, newCredit);
+            const result = updateCreditRecursive(this.root, key, newCredit);
+            if (result && result.newNode !== undefined) {
+                this.root = result.newNode;
+            }
         }
     };
 })();
