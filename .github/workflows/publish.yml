@@ -4,10 +4,9 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
 
 permissions:
-  id-token: write # Required for OIDC / trusted publishing
+  id-token: write # OIDC for npm trusted publishing
   contents: read
 
 jobs:
@@ -19,7 +18,6 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
           package-manager-cache: false # never use caching in release builds
 
       - run: npm ci
